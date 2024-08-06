@@ -1,0 +1,50 @@
+Options -Indexes
+
+DirectoryIndex index.php
+
+# contacto.php -> contacto
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-z_]+)/?$ $1.php [NC]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([a-z_]+)/?$ $1.html [NC]
+</IfModule>
+
+# Prevenir acceso a los archivos .htaccess
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+
+ErrorDocument 401 /errors/401.php
+ErrorDocument 403 /errors/403.php
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:TuTema
+ErrorDocument 404 /errors/404.php
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE TuTema:ERRORPAGEID
+
+# Evita el hotlink
+#RewriteEngine on
+#RewriteCond %{HTTP_REFERER} !^$
+#RewriteCond %{HTTP_REFERER} !^http://(www\.)?integralv6\.co/.*$ [NC]
+#RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW UPGRADE_INSECURE_REQUESTS:integralv6.co
+Header always set Content-Security-Policy: upgrade-insecure-requests
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW UPGRADE_INSECURE_REQUESTS:integralv6.co
+
+
+
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:integralv6.co
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?integralv6.co
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:integralv6.co

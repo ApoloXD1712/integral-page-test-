@@ -1,0 +1,11 @@
+.login-page .main-footer {
+  display:none;
+}
+
+.user-panel{
+  padding: 0 1rem;
+}
+
+.nowt{
+    color: red;
+}
